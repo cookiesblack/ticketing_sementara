@@ -1,23 +1,20 @@
-@extends('layout.template')
+@extends('layout.template-new')
 
 @section('content')
     <!-- Page Content -->
-    <div class="content">
+    <div class="container-fluid">
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
         @endif
-        <nav class="breadcrumb bg-white push">
-            <a class="breadcrumb-item" href="{{ route('all_ticket') }}">All Ticket</a>
-            <span class="breadcrumb-item active">{{ $ticket[0]->subject }}</span>
-        </nav>
+
         <div class="block">
-            <div class="block-header block-header-default">
+            <div class="block-header block-header-default mb-2">
                 <h3 class="block-title">{{ $ticket[0]->subject }} [{{ $ticket[0]->status }}] </h3>
                 <div class="block-options">
-                    <a class="btn-block-option" href="#forum-reply-form" data-toggle="scroll-to">
-                        <i class="fa fa-reply"></i> Reply
+                    <a class="btn btn-rounded btn-primary" href="{{ route('all_ticket') }}">
+                        <i class="fa fa-reply"></i> Back
                     </a>
                 </div>
             </div>
@@ -94,20 +91,21 @@
                             </td>
                             <td>
                                 {{ Form::open(['url' => route($post), 'files' => true]) }}
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            <!-- CKEditor (js-ckeditor id is initialized in Helpers.ckeditor()) -->
-                                            <!-- For more info and examples you can check out http://ckeditor.com -->
-                                            <textarea required id="js-ckeditor" name="reply"></textarea>
-                                            <input required hidden type="text" name="id_ticket" value="{{$id_ticket}}">
-                                        </div>
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <!-- CKEditor (js-ckeditor id is initialized in Helpers.ckeditor()) -->
+                                        <!-- For more info and examples you can check out http://ckeditor.com -->
+                                        <textarea required id="js-ckeditor" name="reply" class="form-control"></textarea>
+                                        <input required hidden type="text" name="id_ticket" value="{{ $id_ticket }}">
                                     </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-alt-primary">
-                                            <i class="fa fa-reply"></i> Reply
-                                        </button>
-                                    </div>
-                                    {{ Form::close() }}
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-rounded btn-primary">
+                                        <i class="fa fa-paper-plane"></i> Send
+                                    </button>
+
+                                </div>
+                                {{ Form::close() }}
                             </td>
                         </tr>
                     </tbody>

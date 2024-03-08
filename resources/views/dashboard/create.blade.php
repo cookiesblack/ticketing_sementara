@@ -1,7 +1,7 @@
-@extends('layout.template')
+@extends('layout.template-new')
 
 @section('content')
-    <div class="content">
+    <div class="container-fluid">
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -36,7 +36,8 @@
                                             @foreach ($kolomTable as $key => $item)
                                                 <tr>
                                                     {{-- <th>{{ strtoupper($item) }}</th> --}}
-                                                    <th class="d-none d-sm-block" style="max-width:80px">{{ $kolomCaption[$key] }}</th>
+                                                    <th class="d-none d-sm-block" style="max-width:80px">
+                                                        {{ $kolomCaption[$key] }}</th>
                                                     <td class="font-w600">
                                                         @if ($item == 'attachment')
                                                             <input type="file" name="{{ $item }}"
@@ -69,11 +70,11 @@
                                                                 <option value="Urgent">Urgent</option>
                                                             </select>
                                                         @elseif ($item == 'description')
-                                                            <textarea required  id="js-ckeditor"  class="form-control block" name="{{ $item }}" id="{{ $item }}" cols="30"
-                                                                rows="10"></textarea>
-                                                                
+                                                            <textarea required id="ckeditor" class="form-control block" name="{{ $item }}" id="{{ $item }}"
+                                                                cols="30" rows="10"></textarea>
                                                         @else
-                                                            <input required class="form-control block" type="text" placeholder="{{ $kolomCaption[$key] }}"
+                                                            <input required class="form-control block" type="text"
+                                                                placeholder="{{ $kolomCaption[$key] }}"
                                                                 name="{{ $item }}">
                                                         @endif
                                                     </td>
