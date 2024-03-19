@@ -15,6 +15,7 @@ class CreateTicket extends Migration
     {
         Schema::create('ticket', function (Blueprint $table) {
             $table->id();
+            $table->string('uniq_id');
             $table->integer('id_user');
             $table->integer('id_category');
             $table->integer('id_assign');
