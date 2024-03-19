@@ -19,9 +19,9 @@ use App\Http\Controllers\Api;
 //     return $request->user();
 // });
 
-Route::get('/user', [Api::class, 'user'])->name('user');
-Route::get('/all_ticket', [Api::class, 'all_ticket'])->name('all_ticket');
-Route::post('/login', [Api::class, 'login'])->name('login');
+Route::get('/get_user', [Api::class, 'user'])->name('get_user');
+Route::get('/get_all_ticket', [Api::class, 'all_ticket'])->name('get_all_ticket');
+Route::post('/login_app', [Api::class, 'login'])->name('login_app');
 
-Route::get('/user', [Api::class, 'user'])->name('user');
-Route::get('/user', [Api::class, 'user'])->name('user');
+// Route::get('/user', [Api::class, 'user'])->name('user');
+// Route::get('/user', [Api::class, 'user'])->name('user');
