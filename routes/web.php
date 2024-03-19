@@ -17,7 +17,6 @@ use App\Http\Controllers\Dashboard;
 
 Route::get('/', function () {
     return redirect('/login');
-
 });
 
 Route::group(['middleware' => 'LoginValidation'], function () {
@@ -31,7 +30,7 @@ Route::group(['middleware' => 'LoginValidation'], function () {
     Route::get('/user', [Dashboard::class, 'user'])->name('user');
     Route::post('/add_user', [Dashboard::class, 'add_user'])->name('add_user');
     Route::get('/delete_user/{id}', [Dashboard::class, 'delete_user'])->name('delete_user');
-
+    Route::get('/kalender', [Dashboard::class, 'kalender'])->name('kalender');
 });
 
 Route::get('/login', [Login::class, 'index'])->name('login');

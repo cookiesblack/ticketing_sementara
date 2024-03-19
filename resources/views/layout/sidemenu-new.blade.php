@@ -20,6 +20,12 @@
                     <li><a href="{{ route('all_ticket') }}">All Ticket</a></li>
                 </ul>
             </li>
+            <li><a {{ session('type') != 'admin' ? 'hidden' : '' }} class="has-arrow ai-icon"
+                    href="{{ route('kalender') }}" aria-expanded="false">
+                    <i class="flaticon-381-networking"></i>
+                    <span class="nav-text">Kalender</span>
+                </a>
+            </li>
             <li><a {{ session('type') != 'admin' ? 'hidden' : '' }} class="has-arrow ai-icon" href="{{ route('user') }}"
                     aria-expanded="false">
                     <i class="flaticon-381-networking"></i>
