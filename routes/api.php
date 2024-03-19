@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::get('/user', [Api::class, 'user'])->name('user');
+Route::get('/all_ticket', [Api::class, 'all_ticket'])->name('all_ticket');
+Route::post('/login', [Api::class, 'login'])->name('login');
+
+Route::get('/user', [Api::class, 'user'])->name('user');
+Route::get('/user', [Api::class, 'user'])->name('user');

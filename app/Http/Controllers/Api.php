@@ -17,42 +17,36 @@ use App\Models\TicketReply;
 use App\Models\users;
 
 
-class Dashboard extends Controller
+class Api extends Controller
 {
     public function __construct()
     {
     }
 
-
-    public function index()
+    public function login(Request $request)
     {
-        if (empty(session('type'))) {
-            return redirect()->route('login');
+        $username = $request->username;
+        $password = $request->password;
+
+        $userProfile = User::where(["email" => $username, "password" => $password])->selectRaw('*')->get();
+        // echo $userProfile;
+        if (empty($userProfile[0]->email)) {
+            return response()->json([
+                'message' => 'username / password is wrong',
+            ], 401);
+        } else {
+            $userSession = [
+                "id" => $userProfile[0]->id,
+                "fullname" => $userProfile[0]->fullname,
+                "username" => $userProfile[0]->email,
+                "type" => $userProfile[0]->type
+            ];
+            
+            return response()->json([
+                'message' => 'success',
+                'data' => $userSession,
+            ], 200);
         }
-
-        $data = [
-            "title" => "TicketingSchema",
-        ];
-        return view("dashboard.dashboard", $data);
-    }
-
-    public function create_ticket()
-    {
-        $kolom = "subject, id_category, id_assign, priority, description, attachment";
-        $kolomCaption = "Subject, Category, Assign Division, Priority,  Description, Attachment";
-
-        $data = [
-            "title" => "Aplikasi TicketingSchema",
-            "subtitle" => "Admin",
-            "assign" => User::where('type', '=', 'division')->get(),
-            "category" => Category::all(),
-            "kolomTable" => explode(', ', $kolom),
-            "kolomCaption" => explode(', ', $kolomCaption),
-            "post" => "post_ticket",
-            "delete" => "delete_ticket",
-            "file" => "attachment"
-        ];
-        return view("dashboard.create", $data);
     }
 
     public function post_ticket(Request $request)
@@ -108,9 +102,11 @@ class Dashboard extends Controller
         return back()->withSuccess('Success! Ticket has been delete.');
     }
 
-    public function all_ticket()
+    public function all_ticket(Request $request)
     {
-        switch (session('type')) {
+        $type= $request->type;
+        $user_id= $request->user_id;
+        switch ($type) {
             case 'admin':
                 $kolom = "user, uniq_id, subject, priority, category, created_at, status, assigned";
                 $kolomCaption = "User, Uniq ID, Subject, Priority, Category, Date, Status, Assigned";
@@ -162,17 +158,6 @@ class Dashboard extends Controller
         }
 
 
-        $data = [
-            "title" => "Aplikasi TicketingSchema",
-            "subtitle" => "All Ticket",
-            "data" => $dataUser,
-            "kolomTable" => explode(', ', $kolom),
-            "kolomCaption" => explode(', ', $kolomCaption),
-            "post" => "post_berita",
-            "delete" => "delete_ticket",
-            "image" => "post_images"
-        ];
-        return view("dashboard.all", $data);
     }
 
     public function reply($id = 0)
@@ -190,16 +175,6 @@ class Dashboard extends Controller
             ->where('id_ticket', '=', $id)
             ->orderBy('t.id', 'ASC')
             ->get();
-
-        $data = [
-            "title" => "Aplikasi TicketingSchema",
-            "id_ticket" => $id,
-            "ticket" => $ticket,
-            "replay" => $replay,
-            "subtitle" => "Admin",
-            "post" => "post_reply"
-        ];
-        return view("dashboard.reply", $data);
     }
 
     public function post_reply(Request $request)
@@ -214,18 +189,11 @@ class Dashboard extends Controller
     }
 
     public function user()
-    {
-
-
-        $data = [
-            "title" => "Aplikasi TicketingSchema",
-            "subtitle" => "User List",
-            "users" => User::all(),
-            "post" => "add_user",
-            "delete" => "delete_user",
-            "image" => "post_images"
-        ];
-        return view("dashboard.users", $data);
+    {        
+        return response()->json([
+            'message' => 'success',
+            'data' => User::all(),
+        ], 200);
     }
     public function add_user(Request $request)
     {
@@ -236,12 +204,12 @@ class Dashboard extends Controller
         $users->password = $request->password;
         $users->save();
 
-        return back()->withSuccess('Success! User has been add.');
+
     }
     public function delete_user($id)
     {
         $users = User::find($id);
         $users->delete();
-        return redirect()->route('user');
+
     }
 }
