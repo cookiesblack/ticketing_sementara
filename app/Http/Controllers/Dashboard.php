@@ -90,7 +90,8 @@ class Dashboard extends Controller
         $ticket->status = "open";
         $ticket->save();
 
-        return back()->withSuccess('Success! Your ticket has been send.');
+        // return back()->withSuccess('Success! Your ticket has been send.');
+        return redirect()->route('all_ticket')->withSuccess('Success! Your ticket has been send.');;
     }
 
     public function delete_ticket($id)
@@ -114,7 +115,7 @@ class Dashboard extends Controller
                     // ->leftjoin('ticket_reply as r', 't.id', '=', 'r.id_ticket')
                     // ->latest('r.created_at')
                     ->select('t.*', 'c.category_name as category', 'u.fullname as user', 'u_assigned.fullname as assigned', 't.updated_at as last_reply')
-                    ->orderBy('t.id','DESC')
+                    ->orderBy('t.id', 'DESC')
                     ->get();
                 break;
 
@@ -130,7 +131,7 @@ class Dashboard extends Controller
                     // ->latest('r.created_at')
                     ->select('t.*', 'c.category_name as category', 'u.fullname as user', 'u_assigned.fullname as assigned', 't.updated_at as last_reply')
                     ->where('t.id_user', '=', session('id'))
-                    ->orderBy('t.id','DESC')
+                    ->orderBy('t.id', 'DESC')
                     ->get();
                 break;
 
@@ -146,7 +147,7 @@ class Dashboard extends Controller
                     // ->latest('r.created_at')
                     ->select('t.*', 'c.category_name as category', 'u.fullname as user', 'u_assigned.fullname as assigned', 't.updated_at as last_reply')
                     ->where('id_assign', '=', session('id'))
-                    ->orderBy('t.id','DESC')
+                    ->orderBy('t.id', 'DESC')
 
                     ->get();
 
@@ -184,7 +185,7 @@ class Dashboard extends Controller
 
         $data = [
             "title" => "Aplikasi TicketingSchema",
-            "id_ticket"=> $id,
+            "id_ticket" => $id,
             "ticket" => $ticket,
             "replay" => $replay,
             "subtitle" => "Admin",
@@ -202,7 +203,6 @@ class Dashboard extends Controller
         $Reply->save();
 
         return back()->withSuccess('Success! Replay has been posted.');
-
     }
 
     public function user()
@@ -229,7 +229,6 @@ class Dashboard extends Controller
         $users->save();
 
         return back()->withSuccess('Success! User has been add.');
-
     }
     public function delete_user($id)
     {
