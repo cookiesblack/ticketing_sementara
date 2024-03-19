@@ -11,7 +11,7 @@
 
         <div class="block">
             <div class="block-header block-header-default mb-2">
-                <h3 class="block-title">{{ $ticket[0]->subject }} [{{ $ticket[0]->status }}] </h3>
+                <h3 class="block-title">{{ $ticket[0]->subject }} [{{ $ticket[0]->status }}] - {{ $ticket[0]->uniq_id }}</h3>
                 <div class="block-options">
                     <a class="btn btn-rounded btn-primary" href="{{ route('all_ticket') }}">
                         <i class="fa fa-reply"></i> Back
