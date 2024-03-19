@@ -15,13 +15,17 @@ use App\Http\Controllers\Api;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::group(['middleware' => 'ApiValidation'], function () {
+    Route::get('/user/get', [Api::class, 'user']);
 
-Route::get('/get_user', [Api::class, 'user'])->name('get_user');
-Route::get('/get_all_ticket', [Api::class, 'all_ticket'])->name('get_all_ticket');
-Route::post('/login_app', [Api::class, 'login'])->name('login_app');
+    Route::get('/ticket/assign', [Api::class, 'assign_user']);
+    Route::get('/ticket/category', [Api::class, 'category']);
 
-// Route::get('/user', [Api::class, 'user'])->name('user');
-// Route::get('/user', [Api::class, 'user'])->name('user');
+    Route::get('/ticket/get_all', [Api::class, 'all_ticket']);
+    Route::get('/ticket/reply/{id}', [Api::class, 'reply']);
+    Route::post('/ticket/reply', [Api::class, 'post_reply']);
+    Route::post('/ticket/create', [Api::class, 'post_ticket']);
+});
+
+Route::post('/user/login', [Api::class, 'login']);
+
