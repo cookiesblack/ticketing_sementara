@@ -87,7 +87,7 @@ class Dashboard extends Controller
                 $ticket->$value = empty($valueCell) == true ? "-" : $valueCell;
             }
         }
-        $ticket->uniq_id=substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 8);
+        $ticket->uniq_id = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 8);
         $ticket->status = "open";
         $ticket->save();
 
@@ -227,6 +227,7 @@ class Dashboard extends Controller
         ];
         return view("dashboard.users", $data);
     }
+
     public function add_user(Request $request)
     {
         $users = new User();
@@ -243,5 +244,18 @@ class Dashboard extends Controller
         $users = User::find($id);
         $users->delete();
         return redirect()->route('user');
+    }
+
+    public function kalender()
+    {
+        $data = [
+            "title" => "Aplikasi TicketingSchema",
+            "subtitle" => "User List",
+            "users" => User::all(),
+            "post" => "add_user",
+            "delete" => "delete_user",
+            "image" => "post_images"
+        ];
+        return view("dashboard.kalender", $data);
     }
 }

@@ -35,6 +35,7 @@
     <link rel="stylesheet" href="{{ asset('assets') }}/vendor/chartist/css/chartist.min.css">
     <link rel="stylesheet" href="{{ asset('assets') }}/vendor/datatables/css/jquery.dataTables.min.css">
 
+    <link href="{{ asset('assets') }}/vendor/fullcalendar/css/main.min.css" rel="stylesheet">
     <!-- Fonts and Codebase framework -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:300,400,400i,600,700">
     <style>
@@ -103,6 +104,8 @@
     <script src="{{ asset('assets') }}/vendor/peity/jquery.peity.min.js"></script>
     <!-- Dashboard 1 -->
     <script src="{{ asset('assets') }}/js/dashboard/dashboard-1.js"></script>
+    <script src="{{ asset('assets') }}/vendor/fullcalendar/js/main.min.js"></script>
+    <script src="{{ asset('assets') }}/js/plugins-init/fullcalendar-init.js"></script>
 
     <script src="{{ asset('assets') }}/js/custom.min.js"></script>
     <script src="{{ asset('assets') }}/js/deznav-init.js"></script>
